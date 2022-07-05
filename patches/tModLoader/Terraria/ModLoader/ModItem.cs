@@ -927,13 +927,15 @@ namespace Terraria.ModLoader
 		/// Allows you to draw things behind this item, or to modify the way this item is drawn in the world. Return false to stop the game from drawing the item (useful if you're manually drawing the item). Returns true by default.
 		/// </summary>
 		/// <param name="spriteBatch">The sprite batch.</param>
+		/// <param name="screenPosition">Screen position for item drawing</param>
+		/// <param name="frame">Item texture frame</param>
 		/// <param name="lightColor">Color of the light.</param>
 		/// <param name="alphaColor">Color of the alpha.</param>
 		/// <param name="rotation">The rotation.</param>
 		/// <param name="scale">The scale.</param>
 		/// <param name="whoAmI">The who am i.</param>
 		/// <returns></returns>
-		public virtual bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
+		public virtual bool PreDrawInWorld(SpriteBatch spriteBatch, ref Vector2 screenPosition, ref Rectangle frame, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
 			return true;
 		}
 
@@ -941,12 +943,14 @@ namespace Terraria.ModLoader
 		/// Allows you to draw things in front of this item. This method is called even if PreDrawInWorld returns false.
 		/// </summary>
 		/// <param name="spriteBatch">The sprite batch.</param>
+		/// <param name="screenPosition">Screen position for item drawing</param>
+		/// <param name="frame">Item texture frame</param>
 		/// <param name="lightColor">Color of the light.</param>
 		/// <param name="alphaColor">Color of the alpha.</param>
 		/// <param name="rotation">The rotation.</param>
 		/// <param name="scale">The scale.</param>
 		/// <param name="whoAmI">The who am i.</param>
-		public virtual void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
+		public virtual void PostDrawInWorld(SpriteBatch spriteBatch, Vector2 screenPosition, Rectangle frame, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
 		}
 
 		/// <summary>

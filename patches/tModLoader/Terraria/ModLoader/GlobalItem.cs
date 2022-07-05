@@ -829,14 +829,14 @@ namespace Terraria.ModLoader
 		/// <summary>
 		/// Allows you to draw things behind an item, or to modify the way an item is drawn in the world. Return false to stop the game from drawing the item (useful if you're manually drawing the item). Returns true by default.
 		/// </summary>
-		public virtual bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
+		public virtual bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, ref Vector2 screenPosition, ref Rectangle frame, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
 			return true;
 		}
 
 		/// <summary>
 		/// Allows you to draw things in front of an item. This method is called even if PreDrawInWorld returns false.
 		/// </summary>
-		public virtual void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
+		public virtual void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Vector2 screenPosition, Rectangle frame, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
 		}
 
 		/// <summary>

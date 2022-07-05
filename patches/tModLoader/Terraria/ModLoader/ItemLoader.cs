@@ -1671,34 +1671,34 @@ namespace Terraria.ModLoader
 			return item.ModItem?.GetAlpha(lightColor);
 		}
 
-		private delegate bool DelegatePreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI);
+		private delegate bool DelegatePreDrawInWorld(Item item, SpriteBatch spriteBatch, ref Vector2 screenPosition, ref Rectangle frame, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI);
 		private static HookList HookPreDrawInWorld = AddHook<DelegatePreDrawInWorld>(g => g.PreDrawInWorld);
 
 		/// <summary>
 		/// Returns the "and" operator on the results of ModItem.PreDrawInWorld and all GlobalItem.PreDrawInWorld hooks.
 		/// </summary>
-		public static bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
+		public static bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, ref Vector2 screenPosition, ref Rectangle frame, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) {
 			bool flag = true;
 			if (item.ModItem != null)
-				flag &= item.ModItem.PreDrawInWorld(spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
+				flag &= item.ModItem.PreDrawInWorld(spriteBatch, ref screenPosition, ref frame, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
 
 			foreach (var g in HookPreDrawInWorld.Enumerate(item.globalItems)) {
-				flag &= g.PreDrawInWorld(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
+				flag &= g.PreDrawInWorld(item, spriteBatch, ref screenPosition, ref frame, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
 			}
 
 			return flag;
 		}
 
-		private static HookList HookPostDrawInWorld = AddHook<Action<Item, SpriteBatch, Color, Color, float, float, int>>(g => g.PostDrawInWorld);
+		private static HookList HookPostDrawInWorld = AddHook<Action<Item, SpriteBatch, Vector2, Rectangle, Color, Color, float, float, int>>(g => g.PostDrawInWorld);
 		
 		/// <summary>
 		/// Calls ModItem.PostDrawInWorld, then all GlobalItem.PostDrawInWorld hooks.
 		/// </summary>
-		public static void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
-			item.ModItem?.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
+		public static void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Vector2 screenPosition, Rectangle frame, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
+			item.ModItem?.PostDrawInWorld(spriteBatch, screenPosition, frame, lightColor, alphaColor, rotation, scale, whoAmI);
 
 			foreach (var g in HookPostDrawInWorld.Enumerate(item.globalItems)) {
-				g.PostDrawInWorld(item, spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
+				g.PostDrawInWorld(item, spriteBatch, screenPosition, frame, lightColor, alphaColor, rotation, scale, whoAmI);
 			}
 		}
 

@@ -2743,7 +2743,7 @@
  			Microsoft.Xna.Framework.Color color = Lighting.GetColor(item.Center.ToTileCoordinates());
  			Microsoft.Xna.Framework.Color currentColor = item.GetAlpha(color);
  			ItemSlot.GetItemLight(ref currentColor, ref scale, item);
-+			if (!ItemLoader.PreDrawInWorld(item, spriteBatch, color, currentColor, ref num, ref scale, whoami)) {
++			if (!ItemLoader.PreDrawInWorld(item, spriteBatch, ref vector2, ref frame, color, currentColor, ref num, ref scale, whoami)) {
 +				goto PostDraw;
 +			}
  			int num2 = item.glowMask;
@@ -2761,7 +2761,7 @@
  				spriteBatch.Draw(TextureAssets.GlowMask[233].Value, vector2, glowmaskFrame, new Microsoft.Xna.Framework.Color(255, 255, 255, 63) * 0.75f, num, glowmaskFrame.Size() / 2f, scale, SpriteEffects.None, 0f);
 +
 +			PostDraw:
-+			ItemLoader.PostDrawInWorld(item, spriteBatch, color, currentColor, num, scale, whoami);
++			ItemLoader.PostDrawInWorld(item, spriteBatch, vector2, frame, color, currentColor, num, scale, whoami);
  		}
  
  		public void DrawItems() {
